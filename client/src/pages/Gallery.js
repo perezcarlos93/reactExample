@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Card from "..//components/Card";
+import Carousel from "../components/Carousel";
+
+import M from "materialize-css";
 
 function Gallery() {
+	useEffect(() => {
+		M.Carousel.init({
+			fullWidth: true,
+		});
+	});
+
 	const images = [
 		"https://www.london.gov.uk/sites/default/files/business-t-square-5649-1x1.jpg?v=190150",
 		"https://lifewayresearch.com/wp-content/uploads/2021/07/matteo-jorjoson-WsM82a57Nk-unsplash-600x600.jpg",
@@ -13,7 +22,12 @@ function Gallery() {
 
 	return (
 		<div>
-			<Card src={images[0]} />
+			<Carousel />
+			<div className="row">
+				{images.map((image) => {
+					return <Card src={image} />;
+				})}
+			</div>
 		</div>
 	);
 }
