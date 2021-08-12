@@ -1,25 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
-import axios from "axios";
-import User from "../components/User";
+import React from "react";
+// import Form from "../components/Form";
+import Test from "../components/TestPost";
 
 const UserPage = () => {
-	const [results, setResults] = useState();
-	// const results = useRef();
-
-	useEffect(() => {
-		axios.get("https://randomuser.me/api/?results=10").then(({ data }) => {
-			return setResults(data.results);
-		});
-	}, []);
-
-	// console.log(results);
-
 	return (
 		<div>
-			{/* {results.map((user) => {
-				console.log(user);
-				// return <User props={user} />;
-			})} */}
+			{/* <Form /> */}
+			<Test />
 		</div>
 	);
 };

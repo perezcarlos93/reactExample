@@ -1,34 +1,45 @@
-// Here we call an instance of express by requiring it
 const express = require("express");
-
-// Here we call express as a function
 const app = express();
+require("dotenv").config();
+const routes = require("./Routes");
 
-// Defining the PORT our app will use
-const PORT = 3000;
+const mongoose = require("mongoose");
 
-// Path is a Node module that helps us deal with the file and directory paths
-const path = require("path");
+mongoose.connect("mongodb://localhost:27017/example", {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+	useCreateIndex: true,
+});
 
-// Middleware are functions native to Express that run while the server is running
+const db = require("./models");
 
-// express.json() is used to automatically parse JSON files for us
+const PORT = 3001;
+
 app.use(express.json());
-
-// URL encoding refers to how JavaScript interprets data sent and coded into a url: https://www.w3schools.com/tags/ref_urlencode.ASP
 app.use(express.urlencoded({ extended: true }));
 
-// Using the Express static middleware, express will serve static html files in whatever folder is being pointed to
+app.use(routes);
+
+// app.post("/api/test/data", (req, res) => {
+// 	console.log(req);
+// 	db.Test.create(req.body)
+// 		.then((data) => {
+// 			console.log("data", data);
+// 			res.json(data);
+// 		})
+// 		.catch((err) => console.log(err));
+// });
+
+// app.get("/api/test/data", (req, res) => {
+// 	db.Test.find({})
+// 		.then((data) => {
+// 			res.json(data);
+// 		})
+// 		.catch((err) => console.log(err));
+// });
 
 // app.use(express.static(path.join(__dirname, "public")));
 
-// Importing our user's array and displaying those to our /api/users path
-const { villains, heros } = require("./data/users.json");
-
-app.get("/api/heros", (req, res) => res.json(heros));
-app.get("/api/villains", (req, res) => res.json(villains));
-
-// Finally, we ask our express app to listen to a certain port where our files can be posted
 app.listen(PORT, () =>
 	console.log(`App is listening on http://localhost:${PORT}`)
 );

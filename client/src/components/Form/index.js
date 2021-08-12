@@ -1,33 +1,31 @@
-import React, { useEffect, useState, useRef } from "react";
-import useLog from "../../Hooks";
-
-import Message from "../Message";
+import React from "react";
 
 const Form = () => {
-	const [text, setText] = useState();
-	const [saved, setSaved] = useState();
-	const input = useRef();
-
-	function save() {
-		setSaved(input.current.value);
-	}
-
-	function updateText(e) {
-		setText(e.target.value);
-	}
-
 	return (
 		<div className="container">
-			<input ref={input} value={text} onChange={updateText}></input>
-			<div>Message: {text}</div>
 			<br></br>
 			<br></br>
-			<button className="btn" onClick={save}>
-				Save
-			</button>
-			<br></br>
-			<br></br>
-			<Message message={saved} />
+			<div className="row">
+				<label htmlFor="name" />
+				<input name="name" placeholder="name" />
+			</div>
+			<div className="row">
+				<label htmlFor="title" />
+				<input name="title" placeholder="title" />
+			</div>
+
+			<div className="row">
+				<div className="col s6">
+					<label htmlFor="phone">Phone</label>
+					<input name="phone" placeholder="Enter Phone Number" />
+				</div>
+				<div className="col s6">
+					<label htmlFor="email">Email</label>
+					<input name="email" placeholder="email" />
+				</div>
+			</div>
+
+			<input type="submit" className="btn" />
 		</div>
 	);
 };
