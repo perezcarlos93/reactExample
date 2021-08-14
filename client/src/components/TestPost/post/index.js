@@ -9,18 +9,18 @@ const Post = () => {
 	const clearAlert = () => {
 		setTimeout(() => {
 			setAlert(null);
-		}, 4000);
+		}, 5000);
 	};
 
 	const postNew = () => {
 		const input = noteInput.current.value;
 
 		if (!input) {
-			setAlert(<div className="errorAlert">Please Enter A Note</div>);
+			setAlert(<div className="error">Please Enter A Note</div>);
 			clearAlert();
 			return;
 		} else {
-			setAlert(<div className="successAlert">Note Created</div>);
+			setAlert(<div className="success">New Note Added</div>);
 			clearAlert();
 
 			API.postTest({ message: input })
@@ -35,6 +35,7 @@ const Post = () => {
 		<div>
 			<input ref={noteInput} placeholder="Note"></input>
 			<div>{alert}</div>
+
 			<button className="btn blue" onClick={postNew}>
 				Click To Post
 			</button>

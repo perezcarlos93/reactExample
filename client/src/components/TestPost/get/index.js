@@ -1,44 +1,48 @@
-import API from "../../../API";
 import React, { useEffect, useState } from "react";
+import API from "../../../API";
 import "./style.css";
 
-const Post = () => {
-	const [state, setState] = useState([]);
+const Get = () => {
+	const [notes, setNotes] = useState([]);
+	// const notes = useRef();
 
 	const getNotes = async () => {
-		const response = await API.getTests();
+		// Asynchronously get Data from DB
+		const response = await API.getTests({});
+		// Isolate the data object in our response
 		const data = response.data;
-		setState(data);
+		// Set the Notes state to the data from our DB
+		setNotes(data);
+	};
+
+	const removeNote = (_id) => {
+		API.deleteNote(_id)
+			.then((response) => console.log(response))
+			.catch((err) => console.log(err));
 	};
 
 	useEffect(() => {
 		getNotes();
-	}, [state]);
-
-	const remove = (_id) => {
-		console.log(_id);
-		API.deleteTest(_id).then((response) => {
-			console.log("delete request", response);
-		});
-	};
+	}, [notes]);
 
 	return (
 		<div>
 			<div>
-				{state.map((message) => {
+				{notes.map((note) => {
 					return (
-						<div key={message._id} className="row z-depth-5 note">
-							<div className="col s11" key={message._id}>
-								<strong>{message.message}</strong>
+						<div key={note._id} className="z-depth-5 note row">
+							<div className="col s10">
+								<h2> {note.message} </h2>
 								<br></br>
-								<br></br>
-								<small>{message._id}</small>
+								<div> {note._id} </div>
 							</div>
-							<button
-								onClick={() => remove(message._id)}
-								className="btn red white-text col s1">
-								Delete
-							</button>
+							<div className="col s2">
+								<button
+									onClick={() => removeNote(note._id)}
+									className="btn red white-text">
+									Delete
+								</button>
+							</div>
 						</div>
 					);
 				})}
@@ -46,4 +50,5 @@ const Post = () => {
 		</div>
 	);
 };
-export default Post;
+
+export default Get;
