@@ -5,11 +5,14 @@ const routes = require("./Routes");
 
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost:27017/example", {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
-	useCreateIndex: true,
-});
+mongoose.connect(
+	process.env.MONGO_DB_URL || "mongodb://localhost:27017/example",
+	{
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		useCreateIndex: true,
+	}
+);
 
 const PORT = process.env.PORT || 3001;
 
