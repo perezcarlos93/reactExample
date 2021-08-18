@@ -20,12 +20,13 @@ const Post = () => {
 			clearAlert();
 			return;
 		} else {
-			setAlert(<div className="success">New Note Added</div>);
-			clearAlert();
-
 			API.postTest({ message: input })
 				.then((data) => {
 					console.log(data);
+					if (data) {
+						setAlert(<div className="success">New Note Added</div>);
+						clearAlert();
+					}
 				})
 				.catch((err) => console.log(err));
 		}
